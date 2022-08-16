@@ -13,20 +13,17 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/api/v1")
 public class RegistrationController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public RegistrationController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/registration")
-    public ResponseEntity<String> addUser(@RequestBody User user) {
-        if (!user.getPassword().equals(user.getPasswordConfirm())){
-            return new ResponseEntity<>("Пароли не совпадают", HttpStatus.BAD_REQUEST);
-
-        }
-        if (!userService.saveUser(user)){
-            return new ResponseEntity<>("Пользователь с таким именем уже существует", HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>("Вы зарегистрировались", HttpStatus.OK);
+    public String addUser(@RequestBody User user) {
+        return userService.checkUserRegistration(user);
     }
 }

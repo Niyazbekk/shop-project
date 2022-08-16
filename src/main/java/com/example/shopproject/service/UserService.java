@@ -2,13 +2,15 @@ package com.example.shopproject.service;
 
 import com.example.shopproject.entity.Role;
 import com.example.shopproject.entity.User;
+import com.example.shopproject.entity.dto.UserPrincipal;
 import com.example.shopproject.repository.RoleRepository;
 import com.example.shopproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -18,14 +20,14 @@ import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
+    private final UserRepository userRepository;
 
     @PersistenceContext
     private EntityManager em;
 
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    RoleRepository roleRepository;
+    public UserService(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -35,7 +37,7 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
 
-        return user;
+        return new UserPrincipal(user);
     }
 
     public List<User> allUsers() {
@@ -65,5 +67,16 @@ public class UserService implements UserDetailsService {
     public List<User> usergtList(Long idMin) {
         return em.createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
                 .setParameter("paramId", idMin).getResultList();
+    }
+
+    public String checkUserRegistration(User user){
+        if (!user.getPassword().equals(user.getPasswordConfirm())){
+            return "Пароли не совпадают";
+
+        }
+        if (!saveUser(user)){
+            return "Пользователь с таким именем уже существует";
+        }
+        return "Вы зарегистрировались";
     }
 }
