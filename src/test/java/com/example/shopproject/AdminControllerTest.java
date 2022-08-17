@@ -71,6 +71,12 @@ public class AdminControllerTest {
     }
 
     @Test
+    void deleteProduct() throws Exception {
+        this.mockMvc.perform(delete("/api/v1/product/1")).andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
     public void addBasket() throws Exception {
 
         Basket basket = new Basket(2L,1L,1L);
@@ -86,6 +92,12 @@ public class AdminControllerTest {
     void postBadBasket() throws Exception {
         this.mockMvc.perform(post("/api/v1/basket")).andDo(print())
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void deleteBasket() throws Exception {
+        this.mockMvc.perform(delete("/api/v1/basket/1")).andDo(print())
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -116,6 +128,12 @@ public class AdminControllerTest {
     void postBadCategory() throws Exception {
         this.mockMvc.perform(post("/api/v1/product-cat")).andDo(print())
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void deleteCategory() throws Exception {
+        this.mockMvc.perform(delete("/api/v1/product-cat/1")).andDo(print())
+                .andExpect(status().isOk());
     }
 
 
