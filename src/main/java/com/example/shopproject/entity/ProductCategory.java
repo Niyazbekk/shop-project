@@ -1,9 +1,13 @@
 package com.example.shopproject.entity;
 
-import lombok.*;
-
-import javax.persistence.*;
-import java.util.Set;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 @Entity
 @Table(name = "product_category")

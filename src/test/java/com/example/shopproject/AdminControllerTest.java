@@ -1,12 +1,7 @@
 package com.example.shopproject;
-import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import com.example.shopproject.entity.Basket;
-import com.example.shopproject.entity.Product;
 import com.example.shopproject.entity.ProductCategory;
 import com.example.shopproject.service.BasketServiceImpl;
 import com.example.shopproject.service.ProductCategoryServiceImpl;
@@ -34,18 +29,6 @@ public class AdminControllerTest {
 
     @MockBean
     ProductCategoryServiceImpl productCategoryService;
-
-    @Test
-    public void addProduct() throws Exception {
-
-        Product product = new Product(2L, "product2", "nice product2", 7000.0, 1L);
-
-        this.mockMvc.perform(post("/api/v1/product")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(product)))
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
 
     @Test
     void getProducts() throws Exception {
@@ -76,17 +59,6 @@ public class AdminControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @Test
-    public void addBasket() throws Exception {
-
-        Basket basket = new Basket(2L,1L,1L);
-
-        this.mockMvc.perform(post("/api/v1/basket")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(basket)))
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
 
     @Test
     void postBadBasket() throws Exception {

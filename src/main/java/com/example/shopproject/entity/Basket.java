@@ -1,6 +1,8 @@
 package com.example.shopproject.entity;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
 
@@ -13,6 +15,8 @@ public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long userId;
-    private Long productId;
+    @ManyToOne
+    private User userId;
+    @ManyToOne
+    private Product productId;
 }

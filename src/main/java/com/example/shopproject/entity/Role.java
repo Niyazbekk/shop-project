@@ -1,10 +1,14 @@
 package com.example.shopproject.entity;
 
-import lombok.*;
-import lombok.experimental.Accessors;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+import javax.persistence.ManyToMany;
 import java.util.Set;
 
 @Entity

@@ -1,52 +1,43 @@
 package com.example.shopproject.service;
 
-import com.example.shopproject.entity.Basket;
 import com.example.shopproject.entity.ProductCategory;
-import com.example.shopproject.entity.dto.BasketDto;
 import com.example.shopproject.entity.dto.ProductCategoryDto;
 import com.example.shopproject.repository.ProductCategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ProductCategoryServiceImpl implements ProductCategoryService{
     private final ProductCategoryRepository productCategoryRepository;
 
-    static ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper;
 
-    static {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-    }
-
-    public ProductCategoryServiceImpl(ProductCategoryRepository productCategoryRepository) {
-        this.productCategoryRepository = productCategoryRepository;
+    @Override
+    public ProductCategoryDto createProductCategory(ProductCategoryDto productCategory) {
+        productCategoryRepository.save(modelMapper.map(productCategory, ProductCategory.class));
+        return productCategory;
     }
 
     @Override
-    public ProductCategoryDto createProductCategory(ProductCategory productCategory) {
-        ProductCategory productCategoryEntity = productCategoryRepository.save(productCategory);
-        return modelMapper.map(productCategoryEntity, ProductCategoryDto.class);
-    }
-
-    @Override
-    public List<ProductCategory> getAllProductCategories() {
-        return productCategoryRepository.findAll();
+    public List<ProductCategory> getAllProductCategories(Pageable pageable) {
+        return productCategoryRepository.findAll(pageable).getContent();
     }
 
     @Override
     public ProductCategoryDto getProductCategoryById(Long id) {
-        return modelMapper.map(productCategoryRepository.getById(id), ProductCategoryDto.class);
+        return modelMapper.map(productCategoryRepository.getReferenceById(id), ProductCategoryDto.class);
     }
 
     @Override
-    public ProductCategoryDto updateProductCategory(ProductCategory productCategory) {
-        ProductCategory productCategoryEntity = productCategoryRepository.save(productCategory);
-        return modelMapper.map(productCategoryEntity, ProductCategoryDto.class);
+    public ProductCategoryDto updateProductCategory(ProductCategoryDto productCategory) {
+        productCategoryRepository.save(modelMapper.map(productCategory, ProductCategory.class));
+        return productCategory;
     }
 
     @Override

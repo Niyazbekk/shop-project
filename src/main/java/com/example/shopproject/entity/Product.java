@@ -1,6 +1,8 @@
 package com.example.shopproject.entity;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
 
@@ -16,5 +18,6 @@ public class Product {
     private String name;
     private String description;
     private Double cost;
-    private Long productCategoryId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private ProductCategory productCategoryId;
 }

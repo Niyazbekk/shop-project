@@ -3,11 +3,8 @@ package com.example.shopproject.service;
 import com.example.shopproject.entity.Role;
 import com.example.shopproject.entity.User;
 import com.example.shopproject.entity.dto.UserPrincipal;
-import com.example.shopproject.repository.RoleRepository;
 import com.example.shopproject.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,15 +16,12 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @PersistenceContext
     private EntityManager em;
-
-    public UserService(UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
