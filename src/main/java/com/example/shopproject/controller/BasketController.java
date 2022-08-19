@@ -25,8 +25,8 @@ public class BasketController {
         return basketService.createBasket(basketDto);
     }
 
-    @GetMapping("/baskets/{page}")
-    public List<Basket> getAllBaskets(@PathVariable int page){
+    @GetMapping("/baskets")
+    public List<Basket> getAllBaskets(@RequestParam(defaultValue = "0") int page){
         LOGGER.info("getAllBaskets");
         PageRequest pageRequest = PageRequest.of(page, 3);
         return basketService.getAllBaskets(pageRequest);

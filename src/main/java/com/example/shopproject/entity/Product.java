@@ -3,6 +3,8 @@ package com.example.shopproject.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -19,5 +21,6 @@ public class Product {
     private String description;
     private Double cost;
     @ManyToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private ProductCategory productCategoryId;
 }

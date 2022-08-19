@@ -79,6 +79,7 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: FK_PRODUCT_ON_PRODUCTCATEGORYID
                     references: product_category (id)
+                    onDelete: CASCADE
                     nullable: false
 
   - changeSet:
@@ -101,6 +102,7 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: FK_BASKET_ON_USERID
                     references: _user(id)
+                    onDelete: CASCADE
                     nullable: false
               - column:
                   name: product_id_id
@@ -108,6 +110,7 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: FK_BASKET_ON_PRODUCTID
                     references: product (id)
+                    onDelete: CASCADE
                     nullable: false
 
   - changeSet:
@@ -143,6 +146,7 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: fk_userol_on_user
                     references: _user(id)
+                    onDelete: CASCADE
                     nullable: false
               - column:
                   name: roles_id
@@ -150,6 +154,78 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: fk_userol_on_role
                     references: role(id)
+                    onDelete: CASCADE
+                    nullable: false
+
+  - changeSet:
+      id: 7
+      author: postgres
+      changes:
+        - createTable:
+            tableName: rate
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: FK_RATE_ON_USERID
+                    references: _user(id)
+                    onDelete: CASCADE
+                    nullable: false
+              - column:
+                  name: product_id_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: FK_RATE_ON_PRODUCTID
+                    references: product (id)
+                    onDelete: CASCADE
+                    nullable: false
+              - column:
+                  name: rating
+                  type: DOUBLE PRECISION
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 8
+      author: postgres
+      changes:
+        - createTable:
+            tableName: comment
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: FK_COMMENT_ON_USERID
+                    references: _user(id)
+                    onDelete: CASCADE
+                    nullable: false
+              - column:
+                  name: product_id_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: FK_COMMENT_ON_PRODUCTID
+                    references: product (id)
+                    onDelete: CASCADE
+                    nullable: false
+              - column:
+                  name: content
+                  type: VARCHAR(255)
+                  constraints:
                     nullable: false
 
   - include:

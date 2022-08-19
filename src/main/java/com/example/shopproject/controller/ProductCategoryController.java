@@ -25,8 +25,8 @@ public class ProductCategoryController {
         return productCategoryService.createProductCategory(productCategory);
     }
 
-    @GetMapping("/product-cats/{page}")
-    public List<ProductCategory> getAllProductCategories(@PathVariable int page){
+    @GetMapping("/product-cats")
+    public List<ProductCategory> getAllProductCategories(@RequestParam(defaultValue = "0") int page){
         LOGGER.info("get all categories");
         PageRequest pageRequest = PageRequest.of(page, 3);
         return productCategoryService.getAllProductCategories(pageRequest);

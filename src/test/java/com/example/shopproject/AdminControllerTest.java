@@ -2,7 +2,11 @@ package com.example.shopproject;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.example.shopproject.entity.ProductCategory;
+import com.example.shopproject.entity.dto.CommentDto;
+import com.example.shopproject.entity.dto.ProductDto;
+import com.example.shopproject.entity.dto.RateDto;
 import com.example.shopproject.service.BasketServiceImpl;
 import com.example.shopproject.service.ProductCategoryServiceImpl;
 import com.example.shopproject.service.ProductServiceImpl;
@@ -31,6 +35,39 @@ public class AdminControllerTest {
     ProductCategoryServiceImpl productCategoryService;
 
     @Test
+    void postTestProduct() throws Exception{
+        ProductDto product = new ProductDto(4L , "product Test" , "new product" , 2000.0 , 1L);
+
+        this.mockMvc.perform(post("/api/v1/product")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(product)))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void postTestRate() throws Exception{
+        RateDto rate = new RateDto(23L , 1L , 1L ,3.0);
+
+        this.mockMvc.perform(post("/api/v1/rate")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(rate)))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void postTestComment() throws Exception{
+        CommentDto commentDto = new CommentDto(23L , 1L , 1L ,"test comment");
+
+        this.mockMvc.perform(post("/api/v1/comment")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(commentDto)))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
     void getProducts() throws Exception {
         this.mockMvc.perform(get("/api/v1/products")).andDo(print()).andExpect(status().isOk());
     }
@@ -43,7 +80,7 @@ public class AdminControllerTest {
 
     @Test
     void getBaskets() throws Exception {
-        this.mockMvc.perform(get("/api/v1/baskets/1")).andDo(print())
+        this.mockMvc.perform(get("/api/v1/baskets")).andDo(print())
                 .andExpect(status().isOk());
     }
 

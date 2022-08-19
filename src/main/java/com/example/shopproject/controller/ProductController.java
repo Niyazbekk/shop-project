@@ -25,8 +25,8 @@ public class ProductController {
         return productService.createProduct(product);
     }
 
-    @GetMapping("/products/{page}")
-    public List<Product> getAllProducts(@PathVariable int page){
+    @GetMapping("/products")
+    public List<Product> getAllProducts(@RequestParam(defaultValue = "0") int page){
         LOGGER.info("get all products");
         PageRequest pageRequest = PageRequest.of(page, 3);
         return productService.getAllProducts(pageRequest);
