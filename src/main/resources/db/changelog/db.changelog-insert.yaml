@@ -1,0 +1,82 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-insert.yaml
+  - changeSet:
+      id: 7
+      author: postgres
+      comment: "Create roles and inserting user"
+      changes:
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: "ROLE_USER"
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: "ROLE_ADMIN"
+        - insert:
+            tableName: _user
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: username
+                  value: "admin"
+              - column:
+                  name: password
+                  value: "admin"
+        - insert:
+            tableName: _user_roles
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: roles_id
+                  value: 2
+        - insert:
+            tableName: product_category
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: "category1"
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: "product1"
+              - column:
+                  name: description
+                  value: "nice product"
+              - column:
+                  name: cost
+                  value: 5000
+              - column:
+                  name: product_category_id_id
+                  value: 1
+        - insert:
+            tableName: basket
+            columns:
+              - column:
+                  name: user_id_id
+                  value: 1
+              - column:
+                  name: product_id_id
+                  value: 1

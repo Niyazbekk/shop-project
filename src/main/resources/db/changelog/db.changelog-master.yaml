@@ -1,0 +1,156 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-master.yaml
+  - changeSet:
+      id: 1
+      author: postgres
+      changes:
+        - createTable:
+            tableName: _user
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 2
+      author: postgres
+      changes:
+        - createTable:
+            tableName: product_category
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 3
+      author: postgres
+      changes:
+        - createTable:
+            tableName: product
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cost
+                  type: DOUBLE PRECISION
+              - column:
+                  name: product_category_id_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: FK_PRODUCT_ON_PRODUCTCATEGORYID
+                    references: product_category (id)
+                    nullable: false
+
+  - changeSet:
+      id: 4
+      author: postgres
+      changes:
+        - createTable:
+            tableName: basket
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: FK_BASKET_ON_USERID
+                    references: _user(id)
+                    nullable: false
+              - column:
+                  name: product_id_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: FK_BASKET_ON_PRODUCTID
+                    references: product (id)
+                    nullable: false
+
+  - changeSet:
+      id: 5
+      author: postgres
+      changes:
+        - createTable:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 6
+      author: postgres
+      changes:
+        - createTable:
+            tableName: _user_roles
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_userol_on_user
+                    references: _user(id)
+                    nullable: false
+              - column:
+                  name: roles_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_userol_on_role
+                    references: role(id)
+                    nullable: false
+
+  - include:
+      - file: db/changelog/db.changelog-insert.yaml

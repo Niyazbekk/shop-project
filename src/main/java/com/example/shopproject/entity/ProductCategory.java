@@ -8,25 +8,15 @@ import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Transient;
-import javax.persistence.ManyToMany;
-import javax.persistence.FetchType;
-import java.util.Set;
-
 
 @Entity
-@Table(name = "_user")
+@Table(name = "product_category")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User{
+public class ProductCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
-    private String password;
-    @Transient
-    private String passwordConfirm;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    private String name;
 }
