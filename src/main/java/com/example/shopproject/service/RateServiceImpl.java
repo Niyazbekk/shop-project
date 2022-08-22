@@ -3,14 +3,13 @@ package com.example.shopproject.service;
 import com.example.shopproject.entity.Rate;
 import com.example.shopproject.entity.dto.RateDto;
 import com.example.shopproject.repository.RateRepository;
-import com.example.shopproject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 @Transactional
@@ -26,8 +25,8 @@ public class RateServiceImpl implements RateService{
     }
 
     @Override
-    public List<Rate> getAllRates(Pageable pageable) {
-        return rateRepository.findAll(pageable).getContent();
+    public Page<Rate> getAllRates(Pageable pageable) {
+        return rateRepository.findAll(pageable);
     }
 
     @Override

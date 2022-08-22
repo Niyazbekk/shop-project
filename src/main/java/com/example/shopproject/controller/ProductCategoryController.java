@@ -4,11 +4,12 @@ import com.example.shopproject.entity.ProductCategory;
 import com.example.shopproject.entity.dto.ProductCategoryDto;
 import com.example.shopproject.service.ProductCategoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,10 +27,9 @@ public class ProductCategoryController {
     }
 
     @GetMapping("/product-cats")
-    public List<ProductCategory> getAllProductCategories(@RequestParam(defaultValue = "0") int page){
+    public Page<ProductCategory> getAllProductCategories(@PageableDefault(value = 5, page = 0) Pageable pageable){
         LOGGER.info("get all categories");
-        PageRequest pageRequest = PageRequest.of(page, 3);
-        return productCategoryService.getAllProductCategories(pageRequest);
+        return productCategoryService.getAllProductCategories(pageable);
     }
 
     @GetMapping("/product-cat/{id}")

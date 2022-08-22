@@ -5,11 +5,11 @@ import com.example.shopproject.entity.dto.ProductDto;
 import com.example.shopproject.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 @Transactional
@@ -26,8 +26,8 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<Product> getAllProducts(Pageable pageable){
-        return productRepository.findAll(pageable).getContent();
+    public Page<Product> getAllProducts(Pageable pageable){
+        return productRepository.findAll(pageable);
     }
 
     @Override

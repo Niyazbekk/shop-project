@@ -5,11 +5,11 @@ import com.example.shopproject.entity.dto.BasketDto;
 import com.example.shopproject.repository.BasketRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 @Transactional
@@ -27,8 +27,8 @@ public class BasketServiceImpl implements BasketService{
     }
 
     @Override
-    public List<Basket> getAllBaskets(Pageable pageable){
-        return basketRepository.findAll(pageable).getContent();
+    public Page<Basket> getAllBaskets(Pageable pageable){
+        return basketRepository.findAll(pageable);
     }
 
     @Override
