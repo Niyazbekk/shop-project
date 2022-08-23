@@ -6,7 +6,12 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "comment")
@@ -19,10 +24,10 @@ public class Comment {
     private Long id;
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private User userId;
+    private User user;
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Product productId;
+    private Product product;
 
     private String content;
 }

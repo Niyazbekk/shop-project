@@ -6,10 +6,12 @@ import com.example.shopproject.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -26,8 +28,10 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Page<Product> getAllProducts(Pageable pageable){
-        return productRepository.findAll(pageable);
+    public Page<ProductDto> getAllProducts(Pageable pageable){
+        return new PageImpl<>(productRepository.findAll(pageable).stream()
+                .map(product -> modelMapper.map(product, ProductDto.class))
+                .collect(Collectors.toList()));
     }
 
     @Override

@@ -6,10 +6,12 @@ import com.example.shopproject.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -26,8 +28,10 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public Page<Comment> getAllComments(Pageable pageable) {
-        return commentRepository.findAll(pageable);
+    public Page<CommentDto> getAllComments(Pageable pageable) {
+        return new PageImpl<>(commentRepository.findAll(pageable).stream()
+                .map(comment -> modelMapper.map(comment, CommentDto.class))
+                .collect(Collectors.toList()));
     }
 
     @Override

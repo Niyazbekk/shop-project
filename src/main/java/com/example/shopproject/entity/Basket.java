@@ -1,12 +1,18 @@
 package com.example.shopproject.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "basket")
@@ -19,8 +25,8 @@ public class Basket {
     private Long id;
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private User userId;
+    private User user;
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Product productId;
+    private Product product;
 }

@@ -6,10 +6,12 @@ import com.example.shopproject.repository.RateRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -25,8 +27,10 @@ public class RateServiceImpl implements RateService{
     }
 
     @Override
-    public Page<Rate> getAllRates(Pageable pageable) {
-        return rateRepository.findAll(pageable);
+    public Page<RateDto> getAllRates(Pageable pageable) {
+        return new PageImpl<>(rateRepository.findAll(pageable).stream()
+                .map(rate -> modelMapper.map(rate, RateDto.class))
+                .collect(Collectors.toList()));
     }
 
     @Override

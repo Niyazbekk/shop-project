@@ -59,25 +59,25 @@ databaseChangeLog:
                   name: cost
                   value: 5000
               - column:
-                  name: product_category_id_id
+                  name: product_category_id
                   value: 1
         - insert:
             tableName: basket
             columns:
               - column:
-                  name: user_id_id
+                  name: user_id
                   value: 1
               - column:
-                  name: product_id_id
+                  name: product_id
                   value: 1
         - insert:
             tableName: comment
             columns:
               - column:
-                  name: user_id_id
+                  name: user_id
                   value: 1
               - column:
-                  name: product_id_id
+                  name: product_id
                   value: 1
               - column:
                   name: content
@@ -86,10 +86,10 @@ databaseChangeLog:
             tableName: rate
             columns:
               - column:
-                  name: user_id_id
+                  name: user_id
                   value: 1
               - column:
-                  name: product_id_id
+                  name: product_id
                   value: 1
               - column:
                   name: rating
