@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class RegistrationController {
-
     private final UserService userService;
-
     @PostMapping("/registration")
     public String addUser(@RequestBody User user) {
         return userService.checkUserRegistration(user);

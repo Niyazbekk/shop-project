@@ -1,6 +1,7 @@
 package com.example.shopproject.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -18,6 +19,7 @@ import javax.persistence.Table;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +30,5 @@ public class Comment {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
-
     private String content;
 }
