@@ -1,9 +1,7 @@
-package com.example.shopproject;
+package com.example.shopproject.repository;
 
 import com.example.shopproject.entity.ProductCategory;
-import com.example.shopproject.repository.ProductCategoryRepository;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -13,23 +11,17 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 public class ProductCategoryRepositoryTest {
+    //given
     @MockBean
     private ProductCategoryRepository productCategoryRepository;
-    static ProductCategory productCategory;
-    static List<ProductCategory> productCategories;
-
-    @BeforeClass
-    public static void prepareTestData() {
-        productCategory = ProductCategory.builder().id(1L).name("cat1").build();
-        productCategories = Collections.singletonList(productCategory);
-    }
+    private final ProductCategory productCategory = ProductCategory.builder().id(1L).name("cat1").build();
+    private final List<ProductCategory> productCategories = Collections.singletonList(productCategory);
 
     @Before
     public void init() {
@@ -38,25 +30,40 @@ public class ProductCategoryRepositoryTest {
 
     @Test
     public void getRateByIdTest(){
-        when(productCategoryRepository.getReferenceById(anyLong())).thenReturn(productCategory);
+        //given
+
+        //when
+        var mockito = when(productCategoryRepository.getReferenceById(anyLong()));
+
+        //then
+        mockito.thenReturn(productCategory);
+
         ProductCategory result = productCategoryRepository.getReferenceById(1L);
-        assertNotNull(result);
-        assertEquals(result.getId(), productCategory.getId());
-        assertEquals(result.getName(), productCategory.getName());
+        assertEquals(result, productCategory);
     }
 
     @Test
     public void getAllRatesTest(){
-        when(productCategoryRepository.findAll()).thenReturn(productCategories);
+        //given
+
+        //when
+        var mockito = when(productCategoryRepository.findAll());
+
+        //then
+        mockito.thenReturn(productCategories);
+
         List<ProductCategory> result = productCategoryRepository.findAll();
-        System.out.println(result);
-        assertNotNull(result);
-        assertEquals(result.get(0).getId(), productCategory.getId());
-        assertEquals(result.get(0).getName(), productCategory.getName());
+        assertEquals(result.get(0), productCategory);
     }
 
     @Test
     public void deleteRateTest(){
+        //given
+
+        //when
+
+        //then
+
         productCategoryRepository.delete(productCategory);
         verify(productCategoryRepository).delete(productCategory);
     }
