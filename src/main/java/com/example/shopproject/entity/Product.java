@@ -1,16 +1,26 @@
 package com.example.shopproject.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "product")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,5 +29,6 @@ public class Product {
     private String description;
     private Double cost;
     @ManyToOne(fetch = FetchType.EAGER)
-    private ProductCategory productCategoryId;
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ProductCategory productCategory;
 }

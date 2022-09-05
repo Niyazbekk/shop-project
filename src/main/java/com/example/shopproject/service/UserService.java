@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Collections;
@@ -22,25 +21,19 @@ public class UserService implements UserDetailsService {
 
     @PersistenceContext
     private EntityManager em;
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
-
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-
         return new UserPrincipal(user);
     }
-
     public List<User> allUsers() {
         return userRepository.findAll();
     }
-
     public boolean saveUser(User user) {
         User userFromDB = userRepository.findByUsername(user.getUsername());
-
         if (userFromDB != null) {
             return false;
         }
@@ -49,7 +42,6 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
         return true;
     }
-
     public boolean deleteUser(Long userId) {
         if (userRepository.findById(userId).isPresent()) {
             userRepository.deleteById(userId);
@@ -57,16 +49,13 @@ public class UserService implements UserDetailsService {
         }
         return false;
     }
-
     public List<User> usergtList(Long idMin) {
         return em.createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
                 .setParameter("paramId", idMin).getResultList();
     }
-
     public String checkUserRegistration(User user){
         if (!user.getPassword().equals(user.getPasswordConfirm())){
             return "Пароли не совпадают";
-
         }
         if (!saveUser(user)){
             return "Пользователь с таким именем уже существует";

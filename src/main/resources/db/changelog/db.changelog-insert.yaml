@@ -3,7 +3,6 @@ databaseChangeLog:
   - changeSet:
       id: 7
       author: postgres
-      comment: "Create roles and inserting user"
       changes:
         - insert:
             tableName: role
@@ -27,9 +26,6 @@ databaseChangeLog:
             tableName: _user
             columns:
               - column:
-                  name: id
-                  value: 1
-              - column:
                   name: username
                   value: "admin"
               - column:
@@ -48,17 +44,11 @@ databaseChangeLog:
             tableName: product_category
             columns:
               - column:
-                  name: id
-                  value: 1
-              - column:
                   name: name
                   value: "category1"
         - insert:
             tableName: product
             columns:
-              - column:
-                  name: id
-                  value: 1
               - column:
                   name: name
                   value: "product1"
@@ -69,14 +59,38 @@ databaseChangeLog:
                   name: cost
                   value: 5000
               - column:
-                  name: product_category_id_id
+                  name: product_category_id
                   value: 1
         - insert:
             tableName: basket
             columns:
               - column:
-                  name: user_id_id
+                  name: user_id
                   value: 1
               - column:
-                  name: product_id_id
+                  name: product_id
                   value: 1
+        - insert:
+            tableName: comment
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: product_id
+                  value: 1
+              - column:
+                  name: content
+                  value: "test comment"
+        - insert:
+            tableName: rate
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: product_id
+                  value: 1
+              - column:
+                  name: rating
+                  value: 5

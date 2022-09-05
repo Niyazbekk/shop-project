@@ -1,5 +1,6 @@
 package com.example.shopproject.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import javax.persistence.GenerationType;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ProductCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
